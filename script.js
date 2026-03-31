@@ -156,6 +156,7 @@
         window.TechBlogTyping && window.TechBlogTyping.init && window.TechBlogTyping.init();
         window.TechBlogParticles && window.TechBlogParticles.init && window.TechBlogParticles.init();
         window.TechBlogGitHub && window.TechBlogGitHub.init && window.TechBlogGitHub.init();
+        window.TechBlogFilters && window.TechBlogFilters.init && window.TechBlogFilters.init();
     }
 
     window.addEventListener("DOMContentLoaded", init);
