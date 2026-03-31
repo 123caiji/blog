@@ -9,11 +9,26 @@
 <body>
     <!-- 动态背景 -->
     <div class="background"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
     
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="container">
             <div class="logo">TechBlog</div>
+            <button class="menu-toggle" aria-label="打开导航菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <button
+                class="settings-toggle"
+                aria-label="打开设置"
+                aria-expanded="false"
+                aria-controls="settings-panel"
+                type="button"
+            ></button>
             <ul class="nav-links">
                 <li><a href="#about">关于我</a></li>
                 <li><a href="#papers">论文发表</a></li>
@@ -26,21 +41,71 @@
     <!-- 英雄区 -->
     <section class="hero">
         <div class="container">
-            <h1>技术探索者</h1>
+            <p class="hero-kicker">NEXT-GEN ENGINEER</p>
+            <h1>
+                <span
+                    id="typing-text"
+                    data-typing-fallback="技术探索者"
+                    data-typing-lines="技术探索者|面向未来的AI工程师|区块链与可信计算|开源驱动的研究者"
+                >技术探索者</span>
+            </h1>
             <p>专注于前沿技术研究与开源贡献</p>
+            <div class="hero-status">
+                <span class="status-dot"></span>
+                <span>系统在线 | 持续交付中</span>
+            </div>
         </div>
     </section>
+
+    <!-- 设置面板 -->
+    <aside id="settings-panel" class="settings-panel" aria-hidden="true">
+        <div class="settings-header">
+            <div class="settings-title">交互设置</div>
+            <button class="settings-close" type="button" aria-label="关闭设置"></button>
+        </div>
+        <div class="settings-body">
+            <label class="setting-item">
+                <input id="setting-bg-motion" type="checkbox" checked />
+                <span>动态背景</span>
+            </label>
+            <label class="setting-item">
+                <input id="setting-typing" type="checkbox" checked />
+                <span>首屏打字机</span>
+            </label>
+            <label class="setting-item">
+                <input id="setting-particles" type="checkbox" />
+                <span>粒子连线特效</span>
+            </label>
+            <label class="setting-item">
+                <input id="setting-reduce-motion" type="checkbox" />
+                <span>减少动态（节能/舒适）</span>
+            </label>
+            <label class="setting-item">
+                <input id="setting-github-metrics" type="checkbox" checked />
+                <span>拉取 GitHub Star/Fork</span>
+            </label>
+            <label class="setting-item">
+                <input id="setting-neon-high" type="checkbox" />
+                <span>高亮霓虹模式</span>
+            </label>
+            <button id="setting-reset-cache" class="settings-ghost-btn" type="button">
+                清空 GitHub 缓存
+            </button>
+            <div class="settings-hint">提示：你也可以在移动端保持“减少动态”以获得更顺滑体验。</div>
+        </div>
+    </aside>
     
     <!-- 个人简介模块 -->
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title">关于我</h2>
             <div class="about-content">
-                <div class="avatar">
+                <div class="avatar" data-github-user="">
+                    <img id="avatar-img" alt="个人头像" />
                     <div class="avatar-inner"></div>
                 </div>
                 <div class="bio">
-                    <h3>张三</h3>
+                    <h3 id="profile-name">张三</h3>
                     <p class="position">高级软件工程师 | 技术研究员</p>
                     <p class="description">
                         我是一名专注于人工智能和区块链技术的软件工程师，拥有5年以上的开发经验。
@@ -48,9 +113,9 @@
                         致力于通过技术创新解决实际问题，推动行业发展。
                     </p>
                     <div class="social-links">
-                        <a href="#" class="social-link">GitHub</a>
-                        <a href="#" class="social-link">LinkedIn</a>
-                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link" data-social="github" target="_blank" rel="noreferrer noopener">GitHub</a>
+                        <a href="#" class="social-link" data-social="linkedin" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+                        <a href="#" class="social-link" data-social="twitter" target="_blank" rel="noreferrer noopener">Twitter</a>
                     </div>
                 </div>
             </div>
@@ -62,22 +127,25 @@
         <div class="container">
             <h2 class="section-title">论文发表</h2>
             <div class="papers-list">
-                <div class="paper-item">
+                <div class="paper-item" data-paper-id="paper1">
                     <h3 class="paper-title">基于深度学习的图像识别技术研究</h3>
                     <p class="paper-authors">张三, 李四, 王五</p>
                     <p class="paper-journal">《计算机科学》, 2024</p>
+                    <a class="paper-doi" href="#" target="_blank" rel="noreferrer noopener" data-doi-url="" data-doi-text="">DOI</a>
                     <p class="paper-abstract">本文提出了一种基于深度学习的图像识别新方法，通过改进卷积神经网络结构，提高了识别准确率。</p>
                 </div>
-                <div class="paper-item">
+                <div class="paper-item" data-paper-id="paper2">
                     <h3 class="paper-title">区块链技术在供应链管理中的应用</h3>
                     <p class="paper-authors">张三, 赵六, 孙七</p>
                     <p class="paper-journal">《信息安全与技术》, 2023</p>
+                    <a class="paper-doi" href="#" target="_blank" rel="noreferrer noopener" data-doi-url="" data-doi-text="">DOI</a>
                     <p class="paper-abstract">探讨了区块链技术在供应链管理中的应用场景，设计了一个基于智能合约的供应链追溯系统。</p>
                 </div>
-                <div class="paper-item">
+                <div class="paper-item" data-paper-id="paper3">
                     <h3 class="paper-title">边缘计算与物联网的融合架构</h3>
                     <p class="paper-authors">张三, 周八, 吴九</p>
                     <p class="paper-journal">《网络与信息系统学报》, 2022</p>
+                    <a class="paper-doi" href="#" target="_blank" rel="noreferrer noopener" data-doi-url="" data-doi-text="">DOI</a>
                     <p class="paper-abstract">提出了一种边缘计算与物联网融合的架构设计，减少了数据传输延迟，提高了系统响应速度。</p>
                 </div>
             </div>
@@ -89,10 +157,14 @@
         <div class="container">
             <h2 class="section-title">开源项目</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" data-repo="" data-repo-key="ai-image-generator">
                     <div class="project-header">
                         <h3 class="project-title">AI Image Generator</h3>
                         <span class="project-badge">Python</span>
+                    </div>
+                    <div class="repo-metrics" aria-label="仓库统计" data-repo-key="ai-image-generator">
+                        <span class="metric-pill">★ <span class="metric-value" data-metric="stars">--</span></span>
+                        <span class="metric-pill">Fork <span class="metric-value" data-metric="forks">--</span></span>
                     </div>
                     <p class="project-description">基于深度学习的图像生成工具，支持多种风格的图像生成。</p>
                     <div class="project-tech">
@@ -105,10 +177,14 @@
                         <a href="#" class="project-link">Demo</a>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" data-repo="" data-repo-key="blockchain-explorer">
                     <div class="project-header">
                         <h3 class="project-title">Blockchain Explorer</h3>
                         <span class="project-badge">JavaScript</span>
+                    </div>
+                    <div class="repo-metrics" aria-label="仓库统计" data-repo-key="blockchain-explorer">
+                        <span class="metric-pill">★ <span class="metric-value" data-metric="stars">--</span></span>
+                        <span class="metric-pill">Fork <span class="metric-value" data-metric="forks">--</span></span>
                     </div>
                     <p class="project-description">区块链浏览器，支持查看交易、区块和地址信息。</p>
                     <div class="project-tech">
@@ -121,10 +197,14 @@
                         <a href="#" class="project-link">Demo</a>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card" data-repo="" data-repo-key="smart-home-hub">
                     <div class="project-header">
                         <h3 class="project-title">Smart Home Hub</h3>
                         <span class="project-badge">C++</span>
+                    </div>
+                    <div class="repo-metrics" aria-label="仓库统计" data-repo-key="smart-home-hub">
+                        <span class="metric-pill">★ <span class="metric-value" data-metric="stars">--</span></span>
+                        <span class="metric-pill">Fork <span class="metric-value" data-metric="forks">--</span></span>
                     </div>
                     <p class="project-description">智能家居控制中心，支持多种设备的接入和管理。</p>
                     <div class="project-tech">
@@ -181,6 +261,11 @@
         </div>
     </footer>
     
+    <script src="config.js"></script>
+    <script src="components/settings.js"></script>
+    <script src="components/typing.js"></script>
+    <script src="components/particles.js"></script>
+    <script src="components/github.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
