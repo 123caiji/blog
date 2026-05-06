@@ -14,18 +14,19 @@
 
         const papers = qsa(".paper-item");
         const projects = qsa(".project-card");
+        const resumeItems = qsa(".resume-experience-item, .resume-education-item");
         let visibleCount = 0;
 
         function matchItem(el) {
             const itemYear = el.getAttribute("data-year") || "";
-            const tags = (el.getAttribute("data-tags") || "").split(",").map((t) => t.trim()).filter(Boolean);
+            const tags = (el.getAttribute("data-tags") || "").split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
 
             const yearOk = year === "all" || itemYear === year;
             const tagOk = tag === "all" || tags.includes(tag);
             return yearOk && tagOk;
         }
 
-        [...papers, ...projects].forEach((el) => {
+        [...papers, ...projects, ...resumeItems].forEach((el) => {
             if (matchItem(el)) {
                 el.classList.remove("is-hidden");
                 visibleCount += 1;
@@ -44,6 +45,8 @@
                           ai: "AI",
                           blockchain: "区块链",
                           iot: "物联网",
+                          backend: "后端",
+                          frontend: "前端",
                       }[tag] || tag;
             summary.textContent = `当前：${yearText} · ${tagText} · 共 ${visibleCount} 条记录`;
         }

@@ -1,4 +1,84 @@
 (function () {
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+    }
+
+    /**
+     * 从 TechBlogConfig.site 写入页面：导航标题、首屏、打字机 data-*、指标、页脚、meta。
+     * 需在 TechBlogTyping.init 之前执行。
+     */
+    function applySiteConfig() {
+        const c = window.TechBlogConfig || {};
+        const site = c.site || {};
+        if (!site || typeof site !== "object") return;
+
+        if (site.pageTitle) document.title = site.pageTitle;
+
+        const metaDesc = document.getElementById("techblog-meta-desc");
+        if (metaDesc && site.metaDescription) metaDesc.setAttribute("content", site.metaDescription);
+
+        const ogTitle = document.getElementById("techblog-meta-og-title");
+        if (ogTitle && site.pageTitle) ogTitle.setAttribute("content", site.pageTitle);
+
+        const ogDesc = document.getElementById("techblog-meta-og-desc");
+        const ogDescText = site.ogDescription || site.metaDescription || "";
+        if (ogDesc && ogDescText) ogDesc.setAttribute("content", ogDescText);
+
+        const logo = document.querySelector(".logo");
+        if (logo && site.logoText) logo.textContent = site.logoText;
+
+        const kicker = document.querySelector(".hero-kicker");
+        if (kicker && site.heroKicker) kicker.textContent = site.heroKicker;
+
+        const subtitle = document.querySelector(".hero-subtitle");
+        if (subtitle && site.heroSubtitle) subtitle.textContent = site.heroSubtitle;
+
+        const statusSpan = document.querySelector(".hero-status span:last-child");
+        if (statusSpan && site.heroStatus) statusSpan.textContent = site.heroStatus;
+
+        const typingEl = document.getElementById("typing-text");
+        if (typingEl) {
+            if (site.typingFallback) {
+                typingEl.setAttribute("data-typing-fallback", site.typingFallback);
+                typingEl.textContent = site.typingFallback;
+            }
+            let linesAttr = "";
+            if (Array.isArray(site.typingLines) && site.typingLines.length) {
+                linesAttr = site.typingLines.map((s) => String(s).trim()).filter(Boolean).join("|");
+            } else if (typeof site.typingLines === "string" && site.typingLines.trim()) {
+                linesAttr = site.typingLines.trim();
+            }
+            if (linesAttr) typingEl.setAttribute("data-typing-lines", linesAttr);
+        }
+
+        const focusUl = document.querySelector(".hero-side .hero-panel:not(.hero-metrics) ul");
+        if (focusUl && Array.isArray(site.focusAreas) && site.focusAreas.length) {
+            focusUl.innerHTML = site.focusAreas.map((t) => `<li>${escapeHtml(t)}</li>`).join("");
+        }
+
+        const metricRows = document.querySelectorAll(".hero-metrics .hero-metric");
+        if (site.heroMetrics && Array.isArray(site.heroMetrics) && site.heroMetrics.length) {
+            site.heroMetrics.forEach((m, i) => {
+                const row = metricRows[i];
+                if (!row || !m) return;
+                const val = row.querySelector(".hero-metric-value");
+                const lab = row.querySelector(".hero-metric-label");
+                if (val && m.value != null && m.value !== "") val.textContent = String(m.value);
+                if (lab && m.label) lab.textContent = m.label;
+            });
+        }
+
+        const footerP = document.querySelector(".footer p");
+        if (footerP && site.footerCopyright) {
+            const year = new Date().getFullYear();
+            footerP.textContent = String(site.footerCopyright).replace(/\{year\}/g, String(year));
+        }
+    }
+
     function getSettings() {
         if (window.TechBlogSettings && typeof window.TechBlogSettings.getConfig === "function") {
             return window.TechBlogSettings.getConfig();
@@ -42,7 +122,7 @@
 
     function setupRevealClasses() {
         const sections = document.querySelectorAll(".section > .container");
-        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category");
+        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category, .resume-card");
 
         sections.forEach((section, index) => {
             section.classList.add("fade-in", `delay-${Math.min(index + 1, 4)}`);
@@ -87,7 +167,7 @@
     }
 
     function addTiltEffect() {
-        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category");
+        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category, .resume-card");
         if (!cards.length) return;
 
         cards.forEach((card) => {
@@ -134,7 +214,11 @@
     }
 
     function init() {
+        applySiteConfig();
+
         window.TechBlogSettings && window.TechBlogSettings.init && window.TechBlogSettings.init();
+
+        window.TechBlogResume && window.TechBlogResume.init && window.TechBlogResume.init();
 
         setupRevealClasses();
         syncRevealMode();

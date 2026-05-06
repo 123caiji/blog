@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人技术博客</title>
+    <meta id="techblog-meta-desc" name="description" content="" />
+    <meta id="techblog-meta-og-title" property="og:title" content="" />
+    <meta id="techblog-meta-og-desc" property="og:description" content="" />
+    <meta property="og:type" content="website" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +20,7 @@
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="container">
-            <div class="logo">TechBlog</div>
+            <div class="logo">我的博客</div>
             <button class="menu-toggle" aria-label="打开导航菜单" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -31,6 +35,7 @@
             ></button>
             <ul class="nav-links">
                 <li><a href="#about">关于我</a></li>
+                <li><a href="#resume">简历</a></li>
                 <li><a href="#papers">论文发表</a></li>
                 <li><a href="#projects">开源项目</a></li>
                 <li><a href="#documents">文档资料</a></li>
@@ -46,9 +51,9 @@
                 <h1>
                     <span
                         id="typing-text"
-                        data-typing-fallback="技术探索者"
-                        data-typing-lines="技术探索者|面向未来的AI工程师|区块链与可信计算|开源驱动的研究者"
-                    >技术探索者</span>
+                        data-typing-fallback="你好，访客"
+                        data-typing-lines="你好，访客|记录学习与工程实践|开源与写作"
+                    >你好，访客</span>
                 </h1>
                 <p class="hero-subtitle">专注于前沿技术研究与开源贡献，连接论文、代码与实际落地。</p>
                 <div class="hero-status">
@@ -134,12 +139,10 @@
                                 <div class="avatar-inner"></div>
                             </div>
                             <div class="bio">
-                                <h3 id="profile-name">张三</h3>
-                                <p class="position">高级软件工程师 | 技术研究员</p>
+                                <h3 id="profile-name">博主昵称</h3>
+                                <p class="position">软件工程师 | 博客作者</p>
                                 <p class="description">
-                                    我是一名专注于人工智能和区块链技术的软件工程师，拥有5年以上的开发经验。
-                                    热衷于探索前沿技术，发表过多篇学术论文，并在GitHub上维护多个开源项目。
-                                    致力于通过技术创新解决实际问题，推动行业发展。
+                                    在这里写一段自我介绍：方向、兴趣、经历均可。也可只在 config.js 的 profile.bio 里填写，会覆盖本段文字。
                                 </p>
                                 <div class="social-links">
                                     <a href="#" class="social-link" data-social="github" target="_blank" rel="noreferrer noopener">GitHub</a>
@@ -148,6 +151,29 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                <!-- 简历（内容由 config.js 的 resume + components/resume.js 渲染） -->
+                <section id="resume" class="section feed-section" hidden>
+                    <div class="container">
+                        <div class="resume-toolbar">
+                            <h2 class="section-title">简历</h2>
+                            <div class="resume-actions">
+                                <a
+                                    id="resume-pdf-link"
+                                    class="resume-btn"
+                                    href="#"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    hidden
+                                >下载 PDF</a>
+                                <button type="button" id="resume-print-btn" class="resume-btn resume-btn--ghost">
+                                    打印 / 导出 PDF
+                                </button>
+                            </div>
+                        </div>
+                        <div id="resume-root" class="resume-shell" aria-live="polite"></div>
                     </div>
                 </section>
 
@@ -263,6 +289,7 @@
                                     <button type="button" class="filter-chip" data-year="2024">2024</button>
                                     <button type="button" class="filter-chip" data-year="2023">2023</button>
                                     <button type="button" class="filter-chip" data-year="2022">2022</button>
+                                    <button type="button" class="filter-chip" data-year="2019">2019</button>
                                 </div>
                             </div>
                             <div class="filter-group">
@@ -272,6 +299,8 @@
                                     <button type="button" class="filter-chip" data-tag="ai">AI</button>
                                     <button type="button" class="filter-chip" data-tag="blockchain">区块链</button>
                                     <button type="button" class="filter-chip" data-tag="iot">物联网</button>
+                                    <button type="button" class="filter-chip" data-tag="backend">后端</button>
+                                    <button type="button" class="filter-chip" data-tag="frontend">前端</button>
                                 </div>
                             </div>
                             <p class="filter-summary" id="filter-summary">显示全部内容</p>
@@ -319,6 +348,7 @@
                             <h3 class="category-title">快速导航</h3>
                             <div class="document-list">
                                 <a href="#about" class="document-item"><h4>关于我</h4><p>个人背景与社交链接</p></a>
+                                <a href="#resume" class="document-item"><h4>简历</h4><p>经历、教育与技能</p></a>
                                 <a href="#papers" class="document-item"><h4>论文发表</h4><p>研究方向与 DOI</p></a>
                                 <a href="#projects" class="document-item"><h4>开源项目</h4><p>项目说明与仓库信息</p></a>
                             </div>
@@ -332,7 +362,7 @@
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 个人技术博客. All rights reserved.</p>
+            <p>&copy; 2026 我的博客</p>
         </div>
     </footer>
     
@@ -342,6 +372,7 @@
     <script src="components/particles.js"></script>
     <script src="components/github.js"></script>
     <script src="components/filters.js"></script>
+    <script src="components/resume.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

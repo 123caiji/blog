@@ -56,6 +56,12 @@
         const nameEl = document.getElementById("profile-name");
         if (nameEl && p.name) nameEl.textContent = p.name;
 
+        const positionEl = document.querySelector(".bio .position");
+        if (positionEl && p.position) positionEl.textContent = p.position;
+
+        const bioEl = document.querySelector(".bio .description");
+        if (bioEl && p.bio) bioEl.textContent = p.bio;
+
         const avatarWrap = document.querySelector(".avatar");
         const avatarImg = document.getElementById("avatar-img");
         if (avatarWrap && p.githubUser && !avatarWrap.getAttribute("data-github-user")) {
