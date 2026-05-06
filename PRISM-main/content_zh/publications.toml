@@ -1,4 +1,0 @@
-type = "publication"
-title = "论文"
-description = "论文与写作列表；请在 publications.bib 中补充正式条目。"
-source = "publications.bib"

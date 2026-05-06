@@ -1,9 +1,0 @@
-type = "card"
-title = "Awards"
-description = "Honors and awards (to be filled in)."
-
-[[items]]
-title = "To be updated"
-subtitle = "—"
-date = "—"
-content = "Add awards here when you want them listed publicly."

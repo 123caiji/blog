@@ -1,4 +1,0 @@
-type = "publication"
-title = "Publications"
-description = "Publications and writing; add your BibTeX entries to publications.bib."
-source = "publications.bib"
