@@ -122,7 +122,7 @@
 
     function setupRevealClasses() {
         const sections = document.querySelectorAll(".section > .container");
-        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category, .resume-card");
+        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category, .resume-doc");
 
         sections.forEach((section, index) => {
             section.classList.add("fade-in", `delay-${Math.min(index + 1, 4)}`);
@@ -167,7 +167,7 @@
     }
 
     function addTiltEffect() {
-        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category, .resume-card");
+        const cards = document.querySelectorAll(".project-card, .paper-item, .document-category");
         if (!cards.length) return;
 
         cards.forEach((card) => {
