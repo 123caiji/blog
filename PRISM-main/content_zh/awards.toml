@@ -1,0 +1,9 @@
+type = "card"
+title = "奖项"
+description = "荣誉与奖项（待补充）。"
+
+[[items]]
+title = "待更新"
+subtitle = "—"
+date = "—"
+content = "需要公开列出时再填写具体奖项。"

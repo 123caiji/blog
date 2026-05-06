@@ -1,0 +1,10 @@
+type = "card"
+title = "教学"
+description = "授课与助教经历（待补充）。"
+
+[[items]]
+title = "待更新"
+subtitle = "—"
+date = "—"
+content = "有公开课程或助教信息时可在此填写。"
+tags = ["教学"]

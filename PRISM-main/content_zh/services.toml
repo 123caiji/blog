@@ -1,0 +1,9 @@
+type = "card"
+title = "学术服务"
+description = "审稿、会务与社区参与（待补充）。"
+
+[[items]]
+title = "待更新"
+subtitle = "—"
+date = "—"
+content = "有需要公开的服务经历时可在此补充。"

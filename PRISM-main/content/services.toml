@@ -1,0 +1,9 @@
+type = "card"
+title = "Services"
+description = "Professional service and community roles (to be filled in)."
+
+[[items]]
+title = "To be updated"
+subtitle = "—"
+date = "—"
+content = "Reviewing, organizing, and other service can be listed here later."
