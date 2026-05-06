@@ -3,376 +3,1058 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人技术博客</title>
-    <meta id="techblog-meta-desc" name="description" content="" />
-    <meta id="techblog-meta-og-title" property="og:title" content="" />
-    <meta id="techblog-meta-og-desc" property="og:description" content="" />
-    <meta property="og:type" content="website" />
+    <title>个人博客 - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #e94560;
+            --gold-color: #c9a962;
+            --text-light: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+        }
+
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold-color);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        #art-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 3rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.3rem;
+            text-transform: uppercase;
+            color: var(--gold-color);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-title span {
+            color: var(--gold-color);
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-color) 0%, #c73e54 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(233, 69, 96, 0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(233, 69, 96, 0.4);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 1px solid var(--gold-color);
+            border-radius: 25px;
+            z-index: -1;
+        }
+
+        .profile-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            background: var(--gold-color);
+            border-radius: 50%;
+            opacity: 0.2;
+            z-index: -2;
+        }
+
+        section {
+            padding: 8rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-color), transparent);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--gold-color);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .about-content li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-light);
+            padding: 0.8rem 1.2rem;
+            background: rgba(201, 169, 98, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(201, 169, 98, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .about-content li:hover {
+            background: rgba(201, 169, 98, 0.1);
+            transform: translateX(5px);
+            border-color: rgba(201, 169, 98, 0.3);
+        }
+
+        .about-content li::before {
+            content: '→';
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .resume-section {
+            background: rgba(22, 33, 62, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .resume-timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .resume-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--gold-color) 0%, transparent 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 2.5rem 3rem;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+            background: rgba(26, 26, 46, 0.7);
+            border-radius: 15px;
+            border: 1px solid rgba(201, 169, 98, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            background: rgba(201, 169, 98, 0.08);
+            border-color: rgba(201, 169, 98, 0.3);
+            transform: translateY(25px);
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: calc(3rem + 50px);
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: auto;
+            padding-left: calc(3rem + 50px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--gold-color);
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+
+        .timeline-year {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--gold-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .projects-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: rgba(22, 33, 62, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(201, 169, 98, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(201, 169, 98, 0.3);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--gold-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-image svg {
+            width: 60px;
+            height: 60px;
+            opacity: 0.3;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, transparent 50%);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-category {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(201, 169, 98, 0.1);
+            color: var(--gold-color);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .project-link:hover {
+            background: var(--gold-color);
+            color: var(--primary-color);
+        }
+
+        .files-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .file-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(22, 33, 62, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(201, 169, 98, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .file-card:hover {
+            background: rgba(201, 169, 98, 0.08);
+            border-color: rgba(201, 169, 98, 0.3);
+            transform: translateX(5px);
+        }
+
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: rgba(233, 69, 96, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent-color);
+        }
+
+        .file-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .file-icon.image-icon {
+            background: rgba(106, 155, 204, 0.2);
+            color: var(--anthropic-blue);
+        }
+
+        .file-icon.doc-icon {
+            background: rgba(201, 169, 98, 0.2);
+            color: var(--gold-color);
+        }
+
+        .file-icon.code-icon {
+            background: rgba(120, 140, 93, 0.2);
+            color: var(--anthropic-green);
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .file-download {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(201, 169, 98, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-color);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .file-download:hover {
+            background: var(--gold-color);
+            color: var(--primary-color);
+        }
+
+        .file-download svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1) 0%, transparent 50%);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-container p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(201, 169, 98, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--gold-color);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .social-link:hover {
+            background: var(--gold-color);
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .social-link svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        footer {
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid rgba(201, 169, 98, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: var(--gold-color);
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-description {
+                margin: 0 auto 3rem;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .resume-timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: calc(3rem + 40px);
+                padding-right: 3rem;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: calc(3rem + 40px);
+                padding-right: 3rem;
+                margin-left: 0;
+            }
+
+            .timeline-item::before {
+                left: 10px !important;
+                right: auto !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .profile-wrapper {
+                width: 280px;
+                height: 280px;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 动态背景 -->
-    <div class="background"></div>
-    <div class="grid-overlay"></div>
-    <div class="noise-overlay"></div>
-    <canvas id="particle-canvas" aria-hidden="true"></canvas>
-    
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">我的博客</div>
-            <button class="menu-toggle" aria-label="打开导航菜单" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <button
-                class="settings-toggle"
-                aria-label="打开设置"
-                aria-expanded="false"
-                aria-controls="settings-panel"
-                type="button"
-            ></button>
+    <div id="art-background"></div>
+    <div class="nav-container">
+        <nav>
+            <div class="logo">Portfolio</div>
             <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
                 <li><a href="#about">关于我</a></li>
                 <li><a href="#resume">简历</a></li>
-                <li><a href="#papers">论文发表</a></li>
-                <li><a href="#projects">开源项目</a></li>
-                <li><a href="#documents">文档资料</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#files">文件</a></li>
+                <li><a href="#contact">联系我</a></li>
             </ul>
-        </div>
-    </nav>
-    
-    <!-- 英雄区：左右分栏布局 -->
-    <section class="hero">
-        <div class="container hero-layout">
-            <div class="hero-main">
-                <p class="hero-kicker">NEXT-GEN ENGINEER</p>
-                <h1>
-                    <span
-                        id="typing-text"
-                        data-typing-fallback="你好，访客"
-                        data-typing-lines="你好，访客|记录学习与工程实践|开源与写作"
-                    >你好，访客</span>
-                </h1>
-                <p class="hero-subtitle">专注于前沿技术研究与开源贡献，连接论文、代码与实际落地。</p>
-                <div class="hero-status">
-                    <span class="status-dot"></span>
-                    <span>系统在线 | 持续交付中</span>
+        </nav>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-subtitle">欢迎来到我的个人空间</p>
+                <h1 class="hero-title">你好，我是 <span>你的名字</span></h1>
+                <p class="hero-description">一名充满热情的开发者/设计师/创作者，专注于创造有意义的数字体验。在这里分享技术心得、项目经验和生活感悟。</p>
+                <a href="#about" class="hero-cta">了解更多</a>
+            </div>
+            <div class="hero-image">
+                <div class="profile-wrapper">
+                    <img src="assets/profile.jpg" alt="个人照片" class="profile-image" onerror="this.src='https://neeko-copilot.bytedance.net/api/text_to_image?prompt=professional%20portrait%20photo%20of%20a%20young%20asian%20creative%20professional%20in%20modern%20minimalist%20setting%20soft%20lighting&image_size=portrait_4_3'">
                 </div>
             </div>
-            <div class="hero-side">
-                <div class="hero-panel">
-                    <h3>当前关注领域</h3>
-                    <ul>
-                        <li>大模型与多模态推理</li>
-                        <li>区块链与可信执行环境</li>
-                        <li>边缘计算与物联网系统</li>
-                    </ul>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">关于我</h2>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://neeko-copilot.bytedance.net/api/text_to_image?prompt=creative%20workspace%20modern%20minimalist%20desk%20with%20computer%20plants%20warm%20lighting&image_size=landscape_16_9" alt="工作空间">
+            </div>
+            <div class="about-content">
+                <h3>个人介绍</h3>
+                <p>在这里添加你的个人介绍。你可以介绍自己的背景、专业领域、兴趣爱好等。让访问者更好地了解你是谁，你做什么。</p>
+                <p>我是一名充满热情的开发者/设计师/创作者，专注于创造有意义的数字体验。在过去的几年里，我积累了丰富的经验，参与了许多有趣的项目。</p>
+                <ul>
+                    <li>专业技能一</li>
+                    <li>专业技能二</li>
+                    <li>专业技能三</li>
+                    <li>专业技能四</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="resume-section" id="resume">
+        <h2 class="section-title">简历</h2>
+        <div class="resume-toolbar" role="toolbar" aria-label="简历操作">
+            <a id="resume-pdf-link" class="resume-toolbar-btn" href="#" target="_blank" rel="noopener noreferrer" hidden>下载 PDF</a>
+            <button type="button" id="resume-print-btn" class="resume-toolbar-btn">打印 / 另存为 PDF</button>
+        </div>
+        <div id="resume-year-filter" class="resume-year-filter" aria-label="按年份筛选"></div>
+        <div id="resume-root"></div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">项目</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/projects/project1.jpg" alt="项目一" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, var(--accent-color) 0%, var(--gold-color) 100%)'; this.parentElement.innerHTML='<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\'></rect><line x1=\'16\' y1=\'2\' x2=\'16\' y2=\'6\'></line><line x1=\'8\' y1=\'2\' x2=\'8\' y2=\'6\'></line><line x1=\'3\' y1=\'10\' x2=\'21\' y2=\'10\'></line></svg>';">
                 </div>
-                <div class="hero-panel hero-metrics">
-                    <div class="hero-metric">
-                        <span class="hero-metric-value">3+</span>
-                        <span class="hero-metric-label">学术论文</span>
+                <div class="project-content">
+                    <span class="project-category">Web开发</span>
+                    <h3 class="project-title">项目名称一</h3>
+                    <p class="project-desc">在这里描述项目的功能和特点，介绍你在项目中扮演的角色和贡献。</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">源码</a>
+                        <a href="#" class="project-link">演示</a>
                     </div>
-                    <div class="hero-metric">
-                        <span class="hero-metric-value">3</span>
-                        <span class="hero-metric-label">开源项目</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/projects/project2.jpg" alt="项目二" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, var(--accent-color) 0%, var(--gold-color) 100%)'; this.parentElement.innerHTML='<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><circle cx=\'12\' cy=\'12\' r=\'10\'></circle><polyline points=\'12 6 12 12 16 14\'></polyline></svg>';">
+                </div>
+                <div class="project-content">
+                    <span class="project-category">移动应用</span>
+                    <h3 class="project-title">项目名称二</h3>
+                    <p class="project-desc">在这里描述项目的功能和特点，介绍你在项目中扮演的角色和贡献。</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">源码</a>
+                        <a href="#" class="project-link">演示</a>
                     </div>
-                    <div class="hero-metric">
-                        <span class="hero-metric-value">5+</span>
-                        <span class="hero-metric-label">年工程经验</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/projects/project3.jpg" alt="项目三" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, var(--accent-color) 0%, var(--gold-color) 100%)'; this.parentElement.innerHTML='<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><path d=\'M12 2L2 7l10 5 10-5-10-5z\'></path><path d=\'M2 17l10 5 10-5\'></path><path d=\'M2 12l10 5 10-5\'></path></svg>';">
+                </div>
+                <div class="project-content">
+                    <span class="project-category">UI/UX设计</span>
+                    <h3 class="project-title">项目名称三</h3>
+                    <p class="project-desc">在这里描述项目的功能和特点，介绍你在项目中扮演的角色和贡献。</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">源码</a>
+                        <a href="#" class="project-link">演示</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 设置面板 -->
-    <aside id="settings-panel" class="settings-panel" aria-hidden="true">
-        <div class="settings-header">
-            <div class="settings-title">交互设置</div>
-            <button class="settings-close" type="button" aria-label="关闭设置"></button>
-        </div>
-        <div class="settings-body">
-            <label class="setting-item">
-                <input id="setting-bg-motion" type="checkbox" checked />
-                <span>动态背景</span>
-            </label>
-            <label class="setting-item">
-                <input id="setting-typing" type="checkbox" checked />
-                <span>首屏打字机</span>
-            </label>
-            <label class="setting-item">
-                <input id="setting-particles" type="checkbox" />
-                <span>粒子连线特效</span>
-            </label>
-            <label class="setting-item">
-                <input id="setting-reduce-motion" type="checkbox" />
-                <span>减少动态（节能/舒适）</span>
-            </label>
-            <label class="setting-item">
-                <input id="setting-github-metrics" type="checkbox" checked />
-                <span>拉取 GitHub Star/Fork</span>
-            </label>
-            <label class="setting-item">
-                <input id="setting-neon-high" type="checkbox" />
-                <span>高亮霓虹模式</span>
-            </label>
-            <button id="setting-reset-cache" class="settings-ghost-btn" type="button">
-                清空 GitHub 缓存
-            </button>
-            <div class="settings-hint">提示：你也可以在移动端保持“减少动态”以获得更顺滑体验。</div>
-        </div>
-    </aside>
-    
-    <main class="feed-shell">
-        <div class="container feed-layout">
-            <div class="feed-main">
-                <!-- 个人简介模块 -->
-                <section id="about" class="section feed-section">
-                    <div class="container">
-                        <h2 class="section-title">关于我</h2>
-                        <div class="about-content">
-                            <div class="avatar" data-github-user="">
-                                <img id="avatar-img" alt="个人头像" />
-                                <div class="avatar-inner"></div>
-                            </div>
-                            <div class="bio">
-                                <h3 id="profile-name">博主昵称</h3>
-                                <p class="position">软件工程师 | 博客作者</p>
-                                <p class="description">
-                                    在这里写一段自我介绍：方向、兴趣、经历均可。也可只在 config.js 的 profile.bio 里填写，会覆盖本段文字。
-                                </p>
-                                <div class="social-links">
-                                    <a href="#" class="social-link" data-social="github" target="_blank" rel="noreferrer noopener">GitHub</a>
-                                    <a href="#" class="social-link" data-social="linkedin" target="_blank" rel="noreferrer noopener">LinkedIn</a>
-                                    <a href="#" class="social-link" data-social="twitter" target="_blank" rel="noreferrer noopener">Twitter</a>
-                                </div>
-                            </div>
-                        </div>
+    <section id="files">
+        <h2 class="section-title">文件展示</h2>
+        <div class="files-container">
+            <div class="files-grid" id="files-grid">
+                <div class="file-card">
+                    <div class="file-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
                     </div>
-                </section>
-
-                <!-- 简历（内容由 config.js 的 resume + components/resume.js 渲染） -->
-                <section id="resume" class="section feed-section" hidden>
-                    <div class="container">
-                        <div class="resume-toolbar">
-                            <h2 class="section-title">简历</h2>
-                            <div class="resume-actions">
-                                <a
-                                    id="resume-pdf-link"
-                                    class="resume-btn"
-                                    href="#"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    hidden
-                                >下载 PDF</a>
-                                <button type="button" id="resume-print-btn" class="resume-btn resume-btn--ghost">
-                                    打印 / 导出 PDF
-                                </button>
-                            </div>
-                        </div>
-                        <div id="resume-root" class="resume-shell" aria-live="polite"></div>
+                    <div class="file-info">
+                        <h4 class="file-name">example.pdf</h4>
+                        <p class="file-size">2.5 MB</p>
                     </div>
-                </section>
-
-                <!-- 论文发表列表 -->
-                <section id="papers" class="section feed-section">
-                    <div class="container">
-                        <h2 class="section-title">论文发表</h2>
-                        <div class="papers-list">
-                            <div class="paper-item" data-paper-id="paper1" data-year="2024" data-tags="ai,vision">
-                                <h3 class="paper-title">基于深度学习的图像识别技术研究</h3>
-                                <p class="paper-authors">张三, 李四, 王五</p>
-                                <p class="paper-journal">《计算机科学》, 2024</p>
-                                <a class="paper-doi" href="#" target="_blank" rel="noreferrer noopener" data-doi-url="" data-doi-text="">DOI</a>
-                                <p class="paper-abstract">本文提出了一种基于深度学习的图像识别新方法，通过改进卷积神经网络结构，提高了识别准确率。</p>
-                            </div>
-                            <div class="paper-item" data-paper-id="paper2" data-year="2023" data-tags="blockchain,security">
-                                <h3 class="paper-title">区块链技术在供应链管理中的应用</h3>
-                                <p class="paper-authors">张三, 赵六, 孙七</p>
-                                <p class="paper-journal">《信息安全与技术》, 2023</p>
-                                <a class="paper-doi" href="#" target="_blank" rel="noreferrer noopener" data-doi-url="" data-doi-text="">DOI</a>
-                                <p class="paper-abstract">探讨了区块链技术在供应链管理中的应用场景，设计了一个基于智能合约的供应链追溯系统。</p>
-                            </div>
-                            <div class="paper-item" data-paper-id="paper3" data-year="2022" data-tags="edge,iot">
-                                <h3 class="paper-title">边缘计算与物联网的融合架构</h3>
-                                <p class="paper-authors">张三, 周八, 吴九</p>
-                                <p class="paper-journal">《网络与信息系统学报》, 2022</p>
-                                <a class="paper-doi" href="#" target="_blank" rel="noreferrer noopener" data-doi-url="" data-doi-text="">DOI</a>
-                                <p class="paper-abstract">提出了一种边缘计算与物联网融合的架构设计，减少了数据传输延迟，提高了系统响应速度。</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 开源项目展示卡片 -->
-                <section id="projects" class="section feed-section">
-                    <div class="container">
-                        <h2 class="section-title">开源项目</h2>
-                        <div class="projects-grid">
-                <div class="project-card" data-repo="" data-repo-key="ai-image-generator" data-year="2024" data-tags="ai,tooling">
-                    <div class="project-header">
-                        <h3 class="project-title">AI Image Generator</h3>
-                        <span class="project-badge">Python</span>
-                    </div>
-                    <div class="repo-metrics" aria-label="仓库统计" data-repo-key="ai-image-generator">
-                        <span class="metric-pill">★ <span class="metric-value" data-metric="stars">--</span></span>
-                        <span class="metric-pill">Fork <span class="metric-value" data-metric="forks">--</span></span>
-                    </div>
-                    <p class="project-description">基于深度学习的图像生成工具，支持多种风格的图像生成。</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">PyTorch</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">React</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="docs/projects/ai-image-generator.md" class="project-link">项目说明</a>
-                        <a href="#" class="project-link">GitHub</a>
-                    </div>
+                    <a href="assets/files/example.pdf" download class="file-download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
                 </div>
-                <div class="project-card" data-repo="" data-repo-key="blockchain-explorer" data-year="2023" data-tags="blockchain,backend">
-                    <div class="project-header">
-                        <h3 class="project-title">Blockchain Explorer</h3>
-                        <span class="project-badge">JavaScript</span>
+                <div class="file-card">
+                    <div class="file-icon image-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
                     </div>
-                    <div class="repo-metrics" aria-label="仓库统计" data-repo-key="blockchain-explorer">
-                        <span class="metric-pill">★ <span class="metric-value" data-metric="stars">--</span></span>
-                        <span class="metric-pill">Fork <span class="metric-value" data-metric="forks">--</span></span>
+                    <div class="file-info">
+                        <h4 class="file-name">portfolio.jpg</h4>
+                        <p class="file-size">1.2 MB</p>
                     </div>
-                    <p class="project-description">区块链浏览器，支持查看交易、区块和地址信息。</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Express</span>
-                        <span class="tech-tag">MongoDB</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="docs/projects/blockchain-explorer.md" class="project-link">项目说明</a>
-                        <a href="#" class="project-link">GitHub</a>
-                    </div>
+                    <a href="assets/files/portfolio.jpg" download class="file-download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
                 </div>
-                <div class="project-card" data-repo="" data-repo-key="smart-home-hub" data-year="2022" data-tags="iot,hardware">
-                    <div class="project-header">
-                        <h3 class="project-title">Smart Home Hub</h3>
-                        <span class="project-badge">C++</span>
+                <div class="file-card">
+                    <div class="file-icon doc-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
                     </div>
-                    <div class="repo-metrics" aria-label="仓库统计" data-repo-key="smart-home-hub">
-                        <span class="metric-pill">★ <span class="metric-value" data-metric="stars">--</span></span>
-                        <span class="metric-pill">Fork <span class="metric-value" data-metric="forks">--</span></span>
+                    <div class="file-info">
+                        <h4 class="file-name">resume.docx</h4>
+                        <p class="file-size">512 KB</p>
                     </div>
-                    <p class="project-description">智能家居控制中心，支持多种设备的接入和管理。</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Arduino</span>
-                        <span class="tech-tag">MQTT</span>
-                        <span class="tech-tag">Vue.js</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="docs/projects/smart-home-hub.md" class="project-link">项目说明</a>
-                        <a href="#" class="project-link">GitHub</a>
-                    </div>
+                    <a href="assets/files/resume.docx" download class="file-download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
                 </div>
-                        </div>
+                <div class="file-card">
+                    <div class="file-icon code-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
                     </div>
-                </section>
+                    <div class="file-info">
+                        <h4 class="file-name">source.zip</h4>
+                        <p class="file-size">15.8 MB</p>
+                    </div>
+                    <a href="assets/files/source.zip" download class="file-download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
             </div>
-
-            <aside class="feed-side">
-                <section class="section feed-section side-filters">
-                    <div class="container">
-                        <div class="document-category">
-                            <h3 class="category-title">内容筛选</h3>
-                            <div class="filter-group">
-                                <label class="filter-label">年份</label>
-                                <div class="filter-chips" data-filter-type="year">
-                                    <button type="button" class="filter-chip is-active" data-year="all">全部</button>
-                                    <button type="button" class="filter-chip" data-year="2024">2024</button>
-                                    <button type="button" class="filter-chip" data-year="2023">2023</button>
-                                    <button type="button" class="filter-chip" data-year="2022">2022</button>
-                                    <button type="button" class="filter-chip" data-year="2019">2019</button>
-                                </div>
-                            </div>
-                            <div class="filter-group">
-                                <label class="filter-label">标签</label>
-                                <div class="filter-chips" data-filter-type="tag">
-                                    <button type="button" class="filter-chip is-active" data-tag="all">全部</button>
-                                    <button type="button" class="filter-chip" data-tag="ai">AI</button>
-                                    <button type="button" class="filter-chip" data-tag="blockchain">区块链</button>
-                                    <button type="button" class="filter-chip" data-tag="iot">物联网</button>
-                                    <button type="button" class="filter-chip" data-tag="backend">后端</button>
-                                    <button type="button" class="filter-chip" data-tag="frontend">前端</button>
-                                </div>
-                            </div>
-                            <p class="filter-summary" id="filter-summary">显示全部内容</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="documents" class="section feed-section side-docs">
-                    <div class="container">
-                        <h2 class="section-title">文档资料</h2>
-                        <div class="documents-container">
-                            <div class="document-category">
-                                <h3 class="category-title">论文</h3>
-                                <div class="document-list">
-                                    <a href="docs/papers/paper1.md" class="document-item">
-                                        <h4>基于深度学习的图像识别技术研究</h4>
-                                        <p>2024年发表</p>
-                                    </a>
-                                    <a href="docs/papers/paper2.md" class="document-item">
-                                        <h4>区块链技术在供应链管理中的应用</h4>
-                                        <p>2023年发表</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="document-category">
-                                <h3 class="category-title">资料</h3>
-                                <div class="document-list">
-                                    <a href="docs/materials/material1.md" class="document-item">
-                                        <h4>深度学习入门指南</h4>
-                                        <p>学习资料</p>
-                                    </a>
-                                    <a href="docs/projects/ai-image-generator.md" class="document-item">
-                                        <h4>AI Image Generator 占位文档</h4>
-                                        <p>项目说明</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="section feed-section side-sticky">
-                    <div class="container">
-                        <div class="document-category">
-                            <h3 class="category-title">快速导航</h3>
-                            <div class="document-list">
-                                <a href="#about" class="document-item"><h4>关于我</h4><p>个人背景与社交链接</p></a>
-                                <a href="#resume" class="document-item"><h4>简历</h4><p>经历、教育与技能</p></a>
-                                <a href="#papers" class="document-item"><h4>论文发表</h4><p>研究方向与 DOI</p></a>
-                                <a href="#projects" class="document-item"><h4>开源项目</h4><p>项目说明与仓库信息</p></a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </aside>
         </div>
-    </main>
+    </section>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 我的博客</p>
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">联系我</h2>
+        <div class="contact-container">
+            <p>如果你有任何问题或合作意向，欢迎通过以下方式联系我。</p>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
+    </section>
+
+    <footer>
+        <p>&copy; <span>2024</span> 你的名字. 保留所有权利.</p>
     </footer>
-    
+
     <script src="config.js"></script>
-    <script src="components/settings.js"></script>
-    <script src="components/typing.js"></script>
-    <script src="components/particles.js"></script>
-    <script src="components/github.js"></script>
-    <script src="components/filters.js"></script>
     <script src="components/resume.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="art-background.js"></script>
 </body>
 </html>
