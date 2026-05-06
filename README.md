@@ -5,7 +5,7 @@
 ## 功能特点
 
 - **响应式设计** - 完美适配桌面和移动设备
-- **算法艺术背景** - 使用 p5.js 实现的粒子流动场动画
+- **深色奢华主题** - 深蓝色背景 + 金色点缀
 - **个人介绍** - 展示头像、姓名、简介和技能列表
 - **简历时间线** - 展示工作经历和教育背景
 - **项目展示** - 展示项目卡片，支持自定义图片
@@ -17,7 +17,6 @@
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- p5.js (算法艺术背景)
 - Google Fonts
 
 ## 快速开始
@@ -40,8 +39,7 @@
 
 ```
 .
-├── index.html          # 主页面
-├── art-background.js   # 算法艺术背景脚本
+├── index.html          # 主页面（包含所有 HTML、CSS 和 JavaScript）
 ├── assets/
 │   ├── projects/       # 项目图片目录
 │   └── files/          # 下载文件目录
@@ -53,30 +51,27 @@
 
 ### 修改个人信息
 
-编辑 `index.html` 文件，修改以下内容：
+编辑 `index.html` 文件：
 
-- 第 836 行：`<h1 class="hero-title">你好，我是 <span>你的名字</span></h1>`
-- 第 837 行：个人简介描述
-- 第 733-736 行：技能列表
+1. **姓名**：搜索 `你好，我是 <span>你的名字</span>` 修改为你的名字
+2. **简介**：修改 `<p class="hero-description">` 中的内容
+3. **技能列表**：修改 `<ul>` 中的技能项
+4. **简历内容**：修改 `<section id="resume">` 中的时间线内容
+5. **项目信息**：修改 `<section id="projects">` 中的项目卡片
+6. **社交链接**：修改 `<section id="contact">` 中的链接
 
-### 添加项目图片
+### 添加图片
 
-将项目图片放入 `assets/projects/` 目录，命名为：
-- `project1.jpg`
-- `project2.jpg`
-- `project3.jpg`
+将图片放入对应的目录：
+- 个人照片：`assets/profile.jpg`
+- 关于页面图片：`assets/about.jpg`
+- 项目图片：`assets/projects/project1.jpg`, `project2.jpg`, `project3.jpg`
 
-### 添加文件
+如果图片不存在，页面会显示优雅的占位符。
 
-将文件放入 `assets/files/` 目录，并在 `index.html` 的文件展示部分添加对应的链接。
+### 添加下载文件
 
-### 修改社交链接
-
-编辑 `index.html` 中的社交媒体链接：
-- GitHub
-- LinkedIn
-- Twitter
-- Email
+将文件放入 `assets/files/` 目录，并在 `index.html` 的文件展示部分添加对应的下载链接。
 
 ## 设计风格
 
