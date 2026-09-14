@@ -3,7 +3,7 @@ description: >-
   AI / Agent 学习记录与开源项目笔记。个人学习总结,欢迎斧正。
 author: 龙天彪
 url: "https://123caiji.github.io"
-baseurl: "/blog"
+baseurl: ""
 
 markdown: kramdown
 highlighter: rouge
